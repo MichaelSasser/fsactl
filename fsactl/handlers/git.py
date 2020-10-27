@@ -17,17 +17,21 @@
 from __future__ import annotations
 
 import datetime
+
 from pathlib import Path
 from shutil import get_terminal_size
 from textwrap import TextWrapper
 from types import TracebackType
+from typing import Any
 from typing import List
 from typing import Optional
 from typing import Type
 from typing import Union
 
 import git
+
 from tabulate import tabulate
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -45,7 +49,7 @@ class Git:
         self.has_updated: Optional[bool] = None  # None, if not checked
 
     @classmethod
-    def clone(cls, origin: Path, dest: Path) -> Git:
+    def clone(cls, origin: str, dest: Path) -> Git:
         git.Repo.clone_from(origin, dest.name)
         return cls(dest)
 
@@ -86,9 +90,9 @@ class Git:
         #                                                                    #
         ######################################################################
 
-        wrapper_user = TextWrapper(width=15,
-                                   drop_whitespace=True,
-                                   break_long_words=True)
+        wrapper_user = TextWrapper(
+            width=15, drop_whitespace=True, break_long_words=True
+        )
         wrapper_comment = TextWrapper(
             width=terminal_size_x - 35,
             drop_whitespace=True,
@@ -116,7 +120,8 @@ class Git:
                 log,
                 headers=("Date", "User", "Commit Message"),
                 tablefmt="psql",
-            ))
+            )
+        )
 
     def pull(self) -> None:
         # Get the last pulled datetime
@@ -124,7 +129,7 @@ class Git:
 
         retries: int = 3
         while retries:
-            retries -=1
+            retries -= 1
             try:
                 self.git.pull()
             except git.exc.GitCommandError:
@@ -132,7 +137,8 @@ class Git:
             except git.GitCommandError:
                 raise ConnectionError(
                     "The updater was not able to connect to remote repository "
-                    "on GitHub. Are you connected to the internet?")
+                    "on GitHub. Are you connected to the internet?"
+                )
 
         self.log(since)
 
@@ -145,20 +151,22 @@ class Git:
         except git.GitCommandError:
             raise ConnectionError(
                 "The updater was not able to connect to remote repository "
-                "on GitHub. Are you connected to the internet?")
+                "on GitHub. Are you connected to the internet?"
+            )
 
         self.log(since)
 
-    def hard_reset(self):
-        self.repo.git.reset('--hard')
-        self.repo.git.clean('-xdf')
+    def hard_reset(self) -> None:
+        self.repo.git.reset("--hard")
+        self.repo.git.clean("-xdf")
 
     @property
-    def tags(self):
+    def tags(self) -> Any:
         return self.repo.tags
 
     def __enter__(self) -> Git:
         """Use the class with the ``with`` statement`` statement.
+
         This is currently not really needed, but unifies the way handlers are
         used.
         """
@@ -166,12 +174,13 @@ class Git:
         return self
 
     def __exit__(
-            self,
-            exc_type: Optional[Type[BaseException]],
-            exc_val: Optional[BaseException],
-            exc_tb: Optional[TracebackType],
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
     ) -> None:
         """Use the class with the ``with`` statement`` statement.
+
         This is currently not really needed, but unifies the way handlers are
         used.
         """
@@ -183,9 +192,13 @@ class Git:
         return self.path.name
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__module__}.{self.__class__.__qualname__}({self.path.name})"
+        return (
+            f"{self.__class__.__module__}."
+            f"{self.__class__.__qualname__}({self.path.name})"
+        )
 
     def __str__(self) -> str:
         return self.__repr__()
+
 
 # vim: set ft=python :

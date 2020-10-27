@@ -14,12 +14,13 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import os
 import sys
+
 from typing import List
 
 from pkg_resources import get_distribution
+
 
 __version__ = get_distribution("fsactl").version
 

@@ -16,17 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-import sys
 import ctypes.wintypes
-
-import yaml
+import sys
 
 from logging import fatal
 from pathlib import Path
 
-
+import yaml
 
 from fsactl.typing import YAML
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -41,12 +40,12 @@ def load_config() -> YAML:
     # Header "Shlobj.h":
     # SHFOLDERAPI SHGetFolderPathW(
     #     HWND   hwnd,     -> 0
-    #     int    csidl,    -> 5 CSIDL_PERSONAL = CSIDL_MYDOCUMENTS (My Documents folder)
+    #     int    csidl,    -> 5 CSIDL_PERSONAL (My Documents folder)
     #     HANDLE hToken,   -> 0
-    #     DWORD  dwFlags,  -> 0 SHGFP_TYPE_CURRENT (get the current value, not the default one)
+    #     DWORD  dwFlags,  -> 0 SHGFP_TYPE_CURRENT (get the current value)
     #     LPWSTR pszPath   -> buf
     # );
-    ctypes.windll.shell32.SHGetFolderPathW(0, 5, 0, 0, buf)
+    ctypes.windll.shell32.SHGetFolderPathW(0, 5, 0, 0, buf)  # type: ignore
 
     config_path: Path = Path(buf.value) / "fsactl/config.yaml"
     try:
@@ -62,4 +61,6 @@ def load_config() -> YAML:
     except FileNotFoundError:
         fatal("Could not find the config file.")
         sys.exit(1)
+
+
 # vim: set ft=python :

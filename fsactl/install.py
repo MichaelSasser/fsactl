@@ -40,4 +40,5 @@ def install(_: Namespace) -> int:
     addons.install()
     return 0
 
+
 # vim: set ft=python :

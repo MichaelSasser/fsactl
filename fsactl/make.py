@@ -40,4 +40,5 @@ def make(_: Namespace) -> int:
     addons.make()
     return 0
 
+
 # vim: set ft=python :

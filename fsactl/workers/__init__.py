@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

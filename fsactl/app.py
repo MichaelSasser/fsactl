@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 import argparse
+
 from argparse import _SubParsersAction as SubParsersAction
 from logging import debug
 from logging import warning
@@ -25,11 +26,12 @@ from typing import List
 
 import coloredlogs
 
-from .update import subparser_update
-from .make import subparser_make
-from .install import subparser_install
-
 from fsactl import __version__
+
+from .install import subparser_install
+from .make import subparser_make
+from .update import subparser_update
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -92,5 +94,6 @@ def main() -> int:
         parser.print_help()
 
         return 1
+
 
 # vim: set ft=python :

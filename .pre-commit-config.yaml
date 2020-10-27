@@ -117,6 +117,6 @@ repos:
 
   # static type checking with mypy
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.782
+    rev: v0.790
     hooks:
       - id: mypy

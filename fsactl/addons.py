@@ -18,19 +18,22 @@ from __future__ import annotations
 
 import re
 import time
+
 from pathlib import Path
+from typing import List
 from typing import Pattern
 
 from .typing import YAML
 from .workers.git import GitWorker
 from .workers.worker import Worker
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
 class Addons:
-    VERSION_CHECK: Pattern = re.compile(r"[0-9.]")
+    VERSION_CHECK: Pattern[str] = re.compile(r"[0-9.]")
 
     # IGNORE_GIT: Callable = shutil.ignore_patterns(".git")
 
@@ -40,13 +43,14 @@ class Addons:
         self.community_dir = Path(config["msfs"]["community_dir"])
         self.addons: YAML = config["msfs"]["addons"]
 
-        self.workers: list[Worker] = []
+        self.workers: List[Worker] = []
 
         # Add an addon_path to the dict
         for addon in self.addons:
             if "github" in addon:  # Later use
                 self.workers.append(
-                    GitWorker(self.addon_dir, self.community_dir, addon))
+                    GitWorker(self.addon_dir, self.community_dir, addon)
+                )
 
         # pprint(self.workers)
         # self.addons_vcs: list[Git] = []
@@ -57,7 +61,9 @@ class Addons:
     # def __scan_for_vcs(self):
     #    if not self.addon_dir.is_dir():
     #        raise ValueError("The addon directory must be a directory.")
-    #    directories: list[Path] = [addon for addon in self.addon_dir.iterdir()]
+    #    directories: list[Path] = [addon for addon in
+    #                               self.addon_dir.iterdir()
+    #    ]
     #    for directory in directories:
     #        try:
     #            temp = Git(directory)
@@ -163,7 +169,7 @@ class Addons:
     #             raise FileExistsError(
     #                 "Maybe there is a linked file that coud not be deleted.")
 
-    def make(self):
+    def make(self) -> None:
         failed: int = 0
         for worker in self.workers:
             if worker.make():
@@ -172,9 +178,13 @@ class Addons:
                 time.sleep(5)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__module__}.{self.__class__.__qualname__}({self.workers})"
+        return (
+            f"{self.__class__.__module__}."
+            f"{self.__class__.__qualname__}({self.workers})"
+        )
 
     def __str__(self) -> str:
         return self.__repr__()
+
 
 # vim: set ft=python :

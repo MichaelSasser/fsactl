@@ -23,6 +23,7 @@ from fsactl import __version__
 
 def test_version() -> None:
     """Test, if the version matches SemVer.
+
     The regular expression is form:
     https://semver.org/#is-there-a-suggested-regular-expression-regex-to-
             check-a-semver-string
@@ -42,5 +43,6 @@ def test_version() -> None:
     assert desired.fullmatch(actual)
 
     # Cleanup - None
+
 
 # vim: set ft=python :

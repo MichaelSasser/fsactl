@@ -17,11 +17,12 @@
 from __future__ import annotations
 
 from typing import Any
-from typing import NewType
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
-YAML = NewType("YAML", Any)
+
+YAML = Any
 
 # vim: set ft=python :

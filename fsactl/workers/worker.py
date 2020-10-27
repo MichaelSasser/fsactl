@@ -18,21 +18,25 @@ from __future__ import annotations
 
 import os
 import subprocess
-from logging import error, debug
+
+from logging import debug
+from logging import error
 from pathlib import Path
-from typing import Any
+from typing import List
 from typing import Optional
+from typing import Tuple
 
 from jinja2 import Template
 
 from fsactl.typing import YAML
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
 class Worker:
-    LN_PATH_HINTS: tuple[str, str, str, str, str, str] = (
+    LN_PATH_HINTS: Tuple[str, str, str, str, str, str] = (
         "ModelBehaviorDefs",
         "SimObjects",
         "html_ui",
@@ -41,16 +45,17 @@ class Worker:
         "manifest.json",
     )
 
-    LN_FILE_EXT_HINTS: tuple[str, Any] = ("locPak",)
+    LN_FILE_EXT_HINTS: Tuple[str] = ("locPak",)
 
-    def __init__(self, addon_dir: Path, community_dir: Path,
-                 addon: YAML) -> None:
+    def __init__(
+        self, addon_dir: Path, community_dir: Path, addon: YAML
+    ) -> None:
         self.addon = addon
         self.addon_dir: Path = addon_dir
         self.community_dir: Path = community_dir
 
-        self.addon_path: Optional[Path] = None
-        self.community_path: Optional[Path] = None
+        self.addon_path: Path
+        self.community_path: Path
 
     def download(self) -> None:
         raise NotImplementedError()
@@ -65,32 +70,31 @@ class Worker:
 
                 # Render path  # TODO: try/except
                 path: Path = Path(
-                    Template(
-                        build["path"]).render(addon_path=str(self.addon_path)))
+                    Template(build["path"]).render(
+                        addon_path=str(self.addon_path)
+                    )
+                )
 
                 # Render command
-                command: str = Template(
-                    build["command"]).render(addon_path=str(self.addon_path))
+                command: str = Template(build["command"]).render(
+                    addon_path=str(self.addon_path)
+                )
 
                 debug(f"make: {str(path)=:80} -> {command=}")
 
                 try:
                     os.chdir(path)
-                except (OSError, FileNotFoundError, PermissionError,
-                        NotADirectoryError) as e:
-                    error(
-                        f'Error with your the path "{str(path)}":\n'
-                        f'{e}'
-                    )
+                except OSError as e:
+                    error(f'Error with your the path "{str(path)}":\n' f"{e}")
                 print(f"\n\n{self.addon_path.name}\n")
                 try:
                     result = subprocess.run(command, shell=True, check=True)
                     return True if result.returncode != 0 else False
                 except subprocess.CalledProcessError as e:
                     error(f"{self.addon_path.name}: {e}")
-                return False
+        return False
 
-    def install(self) -> None:
+    def install(self, force: bool = True) -> None:
         # part generic
         raise NotImplementedError()
 
@@ -99,7 +103,8 @@ class Worker:
         raise NotImplementedError()
 
     def _find_dir_to_install(
-            self) -> Optional[Path]:  # If root return after --
+        self,
+    ) -> Optional[Path]:  # If root return after --
         for hint in self.__class__.LN_PATH_HINTS:
             result = self.__hint_checker(hint)
             if result is not None:
@@ -112,15 +117,19 @@ class Worker:
         return None  # No path found
 
     def __hint_checker(self, hint: str) -> Optional[Path]:
-        locations: list[Path] = list(self.addon_path.rglob(hint))
+        locations: List[Path] = list(self.addon_path.rglob(hint))
         if len(locations) == 1:
             return locations[0].parent
         return None
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__module__}.{self.__class__.__qualname__}({self.addon})"
+        return (
+            f"{self.__class__.__module__}."
+            f"{self.__class__.__qualname__}({self.addon})"
+        )
 
     def __str__(self) -> str:
         return self.__repr__()
+
 
 # vim: set ft=python :
