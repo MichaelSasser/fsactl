@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fsactl"
-version = "0.1.0"
+version = "0.1.1"
 description = "Install and update MSFS2020 addons"
 license = "GPL-3.0+"
 readme = "README.md"
@@ -62,7 +62,7 @@ black = { version = "*", allow-prereleases = true }
 flake8-bugbear = "^20.1.4"
 
 [tool.poetry.scripts]
-matrixctl = "fsactl.app:main"
+fsactl = "fsactl.app:main"
 
 [tool.black]
 line-length = 79
