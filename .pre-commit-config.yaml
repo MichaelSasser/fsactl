@@ -27,7 +27,7 @@ repos:
       # Checks for a common error of placing code before the docstring.
       - id: check-docstring-first
       # check-executables-have-shebangs
-      - id: check-executables-have-shebangs
+      #- id: check-executables-have-shebangs
       # Attempts to load all json files to verify syntax.
       # - id: check-json
       # Check for files that contain merge conflict strings.
