@@ -14,16 +14,20 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
 import argparse
-
-from argparse import _SubParsersAction
+from argparse import _SubParsersAction as SubParsersAction
 from logging import debug
 from logging import warning
 from typing import Callable
 from typing import List
 
 import coloredlogs
+
+from .update import subparser_update
+from .make import subparser_make
+from .install import subparser_install
 
 from fsactl import __version__
 
@@ -38,11 +42,13 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-d", "--debug", action="store_true", help="Enables debugging mode."
     )
-    subparsers: _SubParsersAction = parser.add_subparsers()
+    subparsers: SubParsersAction = parser.add_subparsers()
 
     # Subparsers
-    subparsers_tuple: List[Callable[[_SubParsersAction], None]] = [
-        # subparser_somethibg,
+    subparsers_tuple: List[Callable[[SubParsersAction], None]] = [
+        subparser_update,
+        subparser_make,
+        subparser_install,
     ]
 
     for subparser in subparsers_tuple:

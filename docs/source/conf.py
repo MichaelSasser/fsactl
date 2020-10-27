@@ -17,11 +17,9 @@
 
 import os
 import sys
-
 from typing import List
 
 from pkg_resources import get_distribution
-
 
 __version__ = get_distribution("fsactl").version
 
@@ -37,7 +35,6 @@ author = "Michael Sasser"
 
 # The full version, including alpha/beta/rc tags
 release = __version__
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -59,7 +56,6 @@ templates_path = ["_templates"]
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns: List[str] = []
-
 
 # -- Options for HTML output -------------------------------------------------
 

@@ -18,11 +18,9 @@
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
-
 import sys
 
 from fsactl.app import main
-
 
 if __name__ == "__main__":
     sys.exit(main())
