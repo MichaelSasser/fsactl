@@ -13,12 +13,18 @@ authors = ["Michael Sasser <Michael@MichaelSasser.org>"]
 # https://pypi.python.org/pypi?%3Aaction=list_classifiers
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Operating System :: POSIX :: Windows",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Microsoft :: Windows :: Windows 10",
     "Environment :: Console",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.9",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Topic :: Games/Entertainment",
+    "Topic :: Games/Entertainment :: Simulation",
+    "Typing :: Typed"
 ]
 
 [tool.poetry.dependencies]
