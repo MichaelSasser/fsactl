@@ -30,17 +30,17 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class Addons:
-    VERSION_CHECK: Pattern = re.compile(r"[0-9\.]")
+    VERSION_CHECK: Pattern = re.compile(r"[0-9.]")
 
     # IGNORE_GIT: Callable = shutil.ignore_patterns(".git")
 
-    def __init__(self, addon_dir: Path, community_dir: Path,
-                 addons: YAML) -> None:
-        self.addon_dir = addon_dir
-        self.community_dir = community_dir
-        self.addons: YAML = addons
+    def __init__(self, config: YAML) -> None:
 
-        self.workers: Worker = []
+        self.addon_dir = Path(config["msfs"]["addon_dir"])
+        self.community_dir = Path(config["msfs"]["community_dir"])
+        self.addons: YAML = config["msfs"]["addons"]
+
+        self.workers: list[Worker] = []
 
         # Add an addon_path to the dict
         for addon in self.addons:
@@ -118,9 +118,10 @@ class Addons:
     #     # print(f"The new addon {repo.origin} does not use tags")
     #     # print(f"Found latest tag of the new addon {repo.origin}")
 
-    def update(self, fetch: bool = False) -> None:  # NEW
+    def update(self) -> None:  # NEW
         for worker in self.workers:
             worker.update()
+        # self, fetch: bool = False
         # print("Fetching updates")
         # for addon in self.addons_vcs:
         #    print(f"{addon.name:35}", end="")
@@ -168,7 +169,7 @@ class Addons:
                 time.sleep(5)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__module__}.{self.__class__.__qualname__}({self.addons_vcs})"
+        return f"{self.__class__.__module__}.{self.__class__.__qualname__}({self.workers})"
 
     def __str__(self) -> str:
         return self.__repr__()

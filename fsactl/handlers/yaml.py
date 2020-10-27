@@ -17,10 +17,14 @@
 from __future__ import annotations
 
 import sys
-from logging import error
-from pathlib import Path
+import ctypes.wintypes
 
 import yaml
+
+from logging import fatal
+from pathlib import Path
+
+
 
 from fsactl.typing import YAML
 
@@ -29,16 +33,33 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 def load_config() -> YAML:
-    config_path: Path = Path(__file__).parent / "updater.yaml"
-    with config_path.open("r") as config_stream:
-        try:
-            # Environment(loader=BaseLoader())
-            config: YAML = yaml.safe_load(config_stream)
 
-        except yaml.YAMLError as e:
-            error(
-                f"There was a problem with your updater.yaml config file:\n\n{e}"
-            )
-            sys.exit(0)
+    # https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathw
 
+    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+
+    # Header "Shlobj.h":
+    # SHFOLDERAPI SHGetFolderPathW(
+    #     HWND   hwnd,     -> 0
+    #     int    csidl,    -> 5 CSIDL_PERSONAL = CSIDL_MYDOCUMENTS (My Documents folder)
+    #     HANDLE hToken,   -> 0
+    #     DWORD  dwFlags,  -> 0 SHGFP_TYPE_CURRENT (get the current value, not the default one)
+    #     LPWSTR pszPath   -> buf
+    # );
+    ctypes.windll.shell32.SHGetFolderPathW(0, 5, 0, 0, buf)
+
+    config_path: Path = Path(buf.value) / "fsactl/config.yaml"
+    try:
+        with config_path.open("r") as config_stream:
+            try:
+                return yaml.safe_load(config_stream)
+            except yaml.YAMLError as e:
+                fatal(
+                    "There was a problem with your updater.yaml config file:"
+                    f"\n\n{e}"
+                )
+                sys.exit(1)
+    except FileNotFoundError:
+        fatal("Could not find the config file.")
+        sys.exit(1)
 # vim: set ft=python :

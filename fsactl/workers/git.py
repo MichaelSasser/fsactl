@@ -22,6 +22,7 @@ from typing import Callable
 from typing import Optional
 
 from fsactl.typing import YAML
+from fsactl.handlers.git import Git
 from .worker import Worker
 
 __author__: str = "Michael Sasser"

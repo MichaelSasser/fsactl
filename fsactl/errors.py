@@ -29,14 +29,14 @@ __email__: str = "Michael@MichaelSasser.org"
 class Error(Exception):
     BUGMSG: str = (
         "If you discover this message, please try updating "
-        "MatrixCtl. If you see this message again, we would "
+        "fsactl. If you see this message again, we would "
         "be glad, if you would run the same command again in debug-mode "
-        '(matrixctl -d [...]) and hand in a "Bug report" at '
-        "https://github.com/MichaelSasser/matrixctl/issues "
+        '(fsactl -d [...]) and hand in a "Bug report" at '
+        "https://github.com/MichaelSasser/fsactl/issues "
         "with the complete output.\n\n"
         f"Python version: {version_info.major}.{version_info.minor}."
         f"{version_info.micro} {version_info.releaselevel}\n"
-        f"MatrixCtl version: {get_distribution('matrixctl').version} \n"
+        f"fsactl version: {get_distribution('matrixctl').version} \n"
     )
 
     def __init__(
