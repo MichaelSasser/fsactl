@@ -22,13 +22,16 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
+# install   semver pyyaml jinja2
 python = "^3.9"
-#requests = "^2.24.0"
+semver = "^2.13.0"
+PyYaml = "^5.3.1"
+Jinja2 = "^2.11.2"
 GitPython = "^3.1.8"
 coloredlogs = "^14.0"
 tabulate = "^0.8.7"
 sphinx = { version = "^3.2.1", optional = true }
-sphinx_rtd_theme = { version = "^0.5.0", optional = true  }
+sphinx_rtd_theme = { version = "^0.5.0", optional = true }
 sphinx-autodoc-typehints = { version = "^1.11.0", optional = true }
 sphinxcontrib-programoutput = { version = "^0.16", optional = true }
 
@@ -47,9 +50,9 @@ pycodestyle = "^2.6"
 yapf = "^0.30.0"
 vulture = "^2.1"
 mypy = "^0.782"
-python-language-server = {version = "^0.35.1", extras = ["all"]}
+python-language-server = { version = "^0.35.1", extras = ["all"] }
 black = { version = "*", allow-prereleases = true }
-isort = {version = "^5.5.3", extras = ["pyproject"]}
+isort = { version = "^5.5.3", extras = ["pyproject"] }
 flake8-bugbear = "^20.1.4"
 
 [tool.poetry.scripts]
