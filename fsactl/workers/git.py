@@ -58,13 +58,15 @@ class GitWorker(Worker):
         if not self.vcs:
             self.vcs = Git(self.addon_path)
 
+        print(f"{self.addon_path.name:60}", end="")
         self.vcs.pull()
 
-    def install(self) -> None:
+    def install(self, force: bool = True) -> None:
         if not self.vcs:
             self.vcs = Git(self.addon_path)
 
-        force = True  # todo
+        print(f"\n{self.addon_path.name}")
+
         # print(self)
         copy_dir: Path = self._find_dir_to_install()
         # print(f"{copy_dir=}")

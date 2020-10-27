@@ -122,12 +122,17 @@ class Git:
         # Get the last pulled datetime
         since = self.datetime_last_pulled_commit
 
-        try:
-            self.git.pull()
-        except git.GitCommandError:
-            raise ConnectionError(
-                "The updater was not able to connect to remote repository "
-                "on GitHub. Are you connected to the internet?")
+        retries: int = 3
+        while retries:
+            retries -=1
+            try:
+                self.git.pull()
+            except git.exc.GitCommandError:
+                self.hard_reset()
+            except git.GitCommandError:
+                raise ConnectionError(
+                    "The updater was not able to connect to remote repository "
+                    "on GitHub. Are you connected to the internet?")
 
         self.log(since)
 
@@ -143,6 +148,10 @@ class Git:
                 "on GitHub. Are you connected to the internet?")
 
         self.log(since)
+
+    def hard_reset(self):
+        self.repo.git.reset('--hard')
+        self.repo.git.clean('-xdf')
 
     @property
     def tags(self):

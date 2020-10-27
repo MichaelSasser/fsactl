@@ -35,8 +35,9 @@ def subparser_make(subparsers: SubParsersAction) -> None:
     parser.set_defaults(func=make)
 
 
-def make(_: Namespace):
+def make(_: Namespace) -> int:
     addons: Addons = Addons(load_config())
     addons.make()
+    return 0
 
 # vim: set ft=python :

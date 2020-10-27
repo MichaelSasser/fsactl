@@ -68,12 +68,14 @@ class Addons:
     def download(self) -> None:  # NEW
         if len(self.workers) < 1:
             return  # Do nothing, if there are no addons configured
+        print("\n\nDownloading...\n\n")
         for worker in self.workers:
             worker.download()
 
-    def install(self) -> None:
+    def install(self, force: bool = True) -> None:
+        print("\n\nInstalling...\n\n")
         for worker in self.workers:
-            worker.install()
+            worker.install(force)
 
     # def update_tag(self, master: bool = False):
     #     def normalize(version: str):
@@ -119,6 +121,7 @@ class Addons:
     #     # print(f"Found latest tag of the new addon {repo.origin}")
 
     def update(self) -> None:  # NEW
+        print("\n\nUpdating...\n\n")
         for worker in self.workers:
             worker.update()
         # self, fetch: bool = False

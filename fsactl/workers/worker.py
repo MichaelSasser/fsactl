@@ -18,9 +18,9 @@ from __future__ import annotations
 
 import os
 import subprocess
+from logging import error, debug
 from pathlib import Path
 from typing import Any
-from typing import Generator
 from typing import Optional
 
 from jinja2 import Template
@@ -72,18 +72,23 @@ class Worker:
                 command: str = Template(
                     build["command"]).render(addon_path=str(self.addon_path))
 
-                # print(f"{str(path)=:80} -> {command=}")
+                debug(f"make: {str(path)=:80} -> {command=}")
 
                 try:
                     os.chdir(path)
                 except (OSError, FileNotFoundError, PermissionError,
-                        NotADirectoryError):
-                    print(
-                        f"There is something wrong with the directory: {str(path)}"
+                        NotADirectoryError) as e:
+                    error(
+                        f'Error with your the path "{str(path)}":\n'
+                        f'{e}'
                     )
                 print(f"\n\n{self.addon_path.name}\n")
-                result = subprocess.run(command, shell=True, check=True)
-                return True if result.returncode != 0 else False
+                try:
+                    result = subprocess.run(command, shell=True, check=True)
+                    return True if result.returncode != 0 else False
+                except subprocess.CalledProcessError as e:
+                    error(f"{self.addon_path.name}: {e}")
+                return False
 
     def install(self) -> None:
         # part generic
@@ -107,8 +112,7 @@ class Worker:
         return None  # No path found
 
     def __hint_checker(self, hint: str) -> Optional[Path]:
-        locations: Generator[Path, None,
-                             None] = list(self.addon_path.rglob(hint))
+        locations: list[Path] = list(self.addon_path.rglob(hint))
         if len(locations) == 1:
             return locations[0].parent
         return None

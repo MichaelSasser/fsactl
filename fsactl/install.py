@@ -35,8 +35,9 @@ def subparser_install(subparsers: SubParsersAction) -> None:
     parser.set_defaults(func=install)
 
 
-def install(_: Namespace):
+def install(_: Namespace) -> int:
     addons: Addons = Addons(load_config())
     addons.install()
+    return 0
 
 # vim: set ft=python :

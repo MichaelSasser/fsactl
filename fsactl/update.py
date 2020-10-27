@@ -32,12 +32,20 @@ def subparser_update(subparsers: SubParsersAction) -> None:
     parser: ArgumentParser = subparsers.add_parser(
         "update", help="Update and build addons"
     )
+    parser.add_argument(
+        "-i",
+        "--install",
+        action="store_true",
+        help="Install updated addons into the community folder")
     parser.set_defaults(func=update)
 
 
-def update(_: Namespace):
+def update(arg: Namespace) -> int:
     addons: Addons = Addons(load_config())
     addons.update()
     addons.make()
+    if arg.install:
+        addons.install(False)
+    return 0
 
 # vim: set ft=python :
