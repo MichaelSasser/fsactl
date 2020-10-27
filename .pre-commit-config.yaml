@@ -54,15 +54,15 @@ repos:
       - id: end-of-file-fixer
       # Removes "# -*- coding: utf-8 -*-" on the top of python files.
       - id: fix-encoding-pragma
-        args: ["--remove"]
+        args: [ "--remove" ]
       # Sort the lines in specified files (defaults to alphabetical).
       # - id: file-contents-sorter (KEEP DISABLED)
       # Replaces or checks mixed line ending to LF.
       - id: mixed-line-ending
-        args: ["--fix=lf"]
+        args: [ "--fix=lf" ]
       # Assert that files in tests/ match test*.py.
       - id: name-tests-test
-        args: ["--django"]
+        args: [ "--django" ]
       # Protect specific branches from direct checkins.
       - id: no-commit-to-branch
         args:
@@ -93,7 +93,7 @@ repos:
     rev: 5.5.3
     hooks:
       - id: isort
-        additional_dependencies: [toml]
+        additional_dependencies: [ toml ]
 
   # format: black
   - repo: https://github.com/ambv/black
@@ -106,14 +106,14 @@ repos:
     rev: 3.8.3
     hooks:
       - id: flake8
-        additional_dependencies: ["flake8-bugbear"]
+        additional_dependencies: [ "flake8-bugbear" ]
 
   # check docstrings
   - repo: https://github.com/PyCQA/pydocstyle
     rev: 5.1.1
     hooks:
       - id: pydocstyle
-        args: ["--ignore=D10,D21,D202"]
+        args: [ "--ignore=D10,D21,D202" ]
 
   # static type checking with mypy
   - repo: https://github.com/pre-commit/mirrors-mypy
