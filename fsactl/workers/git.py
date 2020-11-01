@@ -68,22 +68,25 @@ class GitWorker(Worker):
         if not self.vcs:
             self.vcs = Git(self.addon_path)
 
-        print(f"{self.addon_path.name:60}", end="")
+        print(f"{self.addon_path.name:68}", end="")
         self.vcs.pull()
 
     def install(self, force: bool = True) -> None:
         if not self.vcs:
             self.vcs = Git(self.addon_path)
 
-        print(f"\n{self.addon_path.name}")
+        print(f"{self.addon_path.name:72}", end="")
 
         # print(self)
         copy_dir: Optional[Path] = self._find_dir_to_install()
+        # print(f"GitWorker.update(): {copy_dir=}")
+
         if copy_dir is None:  # TODO: Do something, when None
+            print("[ERROR]")
             return
         # print(f"{copy_dir=}")
         self.community_path = self.community_dir / copy_dir.name
-        # print(f"{self.community_path=}")
+        # print(f"GitWorker.update(): {self.community_path=}")
 
         if self.vcs.has_updated or not self.community_path.is_dir() or force:
             shutil.rmtree(self.community_path, ignore_errors=True)
@@ -95,7 +98,7 @@ class GitWorker(Worker):
                 # that fails on rmtree and unlink it (should be noted
                 # in 'e') and re-run the function.
                 shutil.copytree(
-                    self.addon_path,
+                    copy_dir,
                     self.community_path,
                     ignore=self.__class__.IGNORE_COPY,
                 )
@@ -105,9 +108,13 @@ class GitWorker(Worker):
                 # Will happen, if copied manuelly.
                 # print(f"{self.addon_path=} -> {self.community_path}, {e=}")
                 # sys.exit(1)
+                print("[ERROR]")
                 raise FileExistsError(
                     "Maybe there is a linked file that coud not be deleted."
                 )
+            print("[ OK  ]")
+            return
+        print("[SKIP ]")
 
 
 # vim: set ft=python :
