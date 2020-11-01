@@ -79,15 +79,14 @@ class GitWorker(Worker):
 
         # print(self)
         copy_dir: Optional[Path] = self._find_dir_to_install()
-        #print(f"GitWorker.update(): {copy_dir=}")
+        # print(f"GitWorker.update(): {copy_dir=}")
 
         if copy_dir is None:  # TODO: Do something, when None
             print("[ERROR]")
             return
         # print(f"{copy_dir=}")
         self.community_path = self.community_dir / copy_dir.name
-        #print(f"GitWorker.update(): {self.community_path=}")
-        #return  # delete
+        # print(f"GitWorker.update(): {self.community_path=}")
 
         if self.vcs.has_updated or not self.community_path.is_dir() or force:
             shutil.rmtree(self.community_path, ignore_errors=True)
