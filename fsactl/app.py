@@ -28,6 +28,7 @@ import coloredlogs
 
 from fsactl import __version__
 
+from .downlaod import subparser_download
 from .install import subparser_install
 from .make import subparser_make
 from .update import subparser_update
@@ -48,6 +49,7 @@ def setup_parser() -> argparse.ArgumentParser:
 
     # Subparsers
     subparsers_tuple: List[Callable[[SubParsersAction], None]] = [
+        subparser_download,
         subparser_update,
         subparser_make,
         subparser_install,
