@@ -56,11 +56,12 @@ You will get a more detailed Documentation to this in the near future.
 
 ```
 $ fsactl
-usage: fsactl [-h] [--version] [-d] {update,make,install} ...
+usage: fsactl [-h] [--version] [-d] {update,download,make,install} ...
 
 positional arguments:
-  {update,make,install}
+  {update,download,make,install}
     update              Update and build addons
+    download            Download new addons
     make                Force to rebuild the addons
     install             Install addons
 
