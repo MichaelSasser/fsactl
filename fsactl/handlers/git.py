@@ -50,7 +50,8 @@ class Git:
 
     @classmethod
     def clone(cls, origin: str, dest: Path) -> Git:
-        git.Repo.clone_from(origin, dest.name)
+
+        git.Repo.clone_from(origin, dest)
         return cls(dest)
 
     def checkout(self, ref: git.TagReference) -> None:
