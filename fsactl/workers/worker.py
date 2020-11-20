@@ -55,7 +55,6 @@ class Worker:
         self.community_dir: Path = community_dir
 
         self.addon_path: Path
-        self.community_path: Path
 
     def download(self) -> None:
         raise NotImplementedError()

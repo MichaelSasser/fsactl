@@ -77,6 +77,7 @@ class Addons:
         print("\n\nDownloading...\n\n")
         for worker in self.workers:
             worker.download()
+        print("Download finished.")
 
     def install(self, force: bool = True) -> None:
         print("\n\nInstalling...\n\n")

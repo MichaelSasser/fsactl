@@ -28,7 +28,6 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-# install   semver pyyaml jinja2
 python = "^3.9"
 semver = "^2.13.0"
 PyYaml = "^5.3.1"
