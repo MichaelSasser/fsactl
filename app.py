@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# fsactl - install and manager your MSFS2020 addons
-# Copyright (c) 2020  Michael Sasser <Michael@MichaelSasser.org>
+#  ${PROJECT_NAME} - install and manage your MSFS2020 addons
+#  Copyright (C) ${YEAR}  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
