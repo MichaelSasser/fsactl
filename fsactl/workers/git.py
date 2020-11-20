@@ -1,19 +1,19 @@
 #!/usr/bin/env python
-# fsactl - install and manage your MSFS2020 addons
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  fsactl - install and manage your MSFS2020 addons
+#  Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
 import shutil
@@ -24,6 +24,8 @@ from typing import Callable
 from typing import List
 from typing import Optional
 from typing import Set
+
+from jinja2 import Template
 
 from fsactl.handlers.git import Git
 from fsactl.typing import YAML
@@ -78,43 +80,61 @@ class GitWorker(Worker):
         print(f"{self.addon_path.name:72}", end="")
 
         # print(self)
-        copy_dir: Optional[Path] = self._find_dir_to_install()
+        try:
+            copy_dirs: List[Path] = [
+                Path(Template(d).render(addon_path=str(self.addon_path)))
+                for d in self.addon["install"]
+            ]
+        except KeyError:
+            copy_dirs = []
+
+        if not copy_dirs:
+            copy_dir: Optional[Path] = self._find_dir_to_install()
+            if copy_dir:
+                copy_dirs.append(copy_dir)
         # print(f"GitWorker.update(): {copy_dir=}")
 
-        if copy_dir is None:  # TODO: Do something, when None
+        if not copy_dirs:  # TODO: Do something, when None
             print("[ERROR]")
             return
-        # print(f"{copy_dir=}")
-        self.community_path = self.community_dir / copy_dir.name
-        # print(f"GitWorker.update(): {self.community_path=}")
 
-        if self.vcs.has_updated or not self.community_path.is_dir() or force:
-            shutil.rmtree(self.community_path, ignore_errors=True)
+        msg: str = "[SKIP ]"  # Message last printed. Can only be changed to OK
 
-            try:
-                # The git directory leaves behind linked files,
-                # that can not be deleted by rmtree.
-                # TODO: Maybe use the kernel.dll to unlink the file
-                # that fails on rmtree and unlink it (should be noted
-                # in 'e') and re-run the function.
-                shutil.copytree(
-                    copy_dir,
-                    self.community_path,
-                    ignore=self.__class__.IGNORE_COPY,
-                )
-            except FileExistsError:
-                # Should not happen, due to the prevention, that the git
-                # directory is beeing copied.
-                # Will happen, if copied manuelly.
-                # print(f"{self.addon_path=} -> {self.community_path}, {e=}")
-                # sys.exit(1)
-                print("[ERROR]")
-                raise FileExistsError(
-                    "Maybe there is a linked file that coud not be deleted."
-                )
-            print("[ OK  ]")
-            return
-        print("[SKIP ]")
+        for copy_dir in copy_dirs:
+            # print(f"{copy_dir=}")
+            community_path = self.community_dir / copy_dir.name
+            # print(f"GitWorker.update(): {self.community_path=}")
+
+            if self.vcs.has_updated or not community_path.is_dir() or force:
+                shutil.rmtree(community_path, ignore_errors=True)
+
+                try:
+                    # The git directory leaves behind linked files,
+                    # that can not be deleted by rmtree.
+                    # TODO: Maybe use the kernel.dll to unlink the file
+                    # that fails on rmtree and unlink it (should be noted
+                    # in 'e') and re-run the function.
+                    shutil.copytree(
+                        copy_dir,
+                        community_path,
+                        ignore=self.__class__.IGNORE_COPY,
+                    )
+                except FileExistsError:
+                    # Should not happen, due to the prevention, that the git
+                    # directory is beeing copied.
+                    # Will happen, if copied manuelly.
+                    # print(f"{self.addon_path=} ->
+                    #       {self.community_path}, {e=}"
+                    #      )
+                    # sys.exit(1)
+                    print("[ERROR]")
+                    raise FileExistsError(
+                        "Maybe there is a linked file that coud not be "
+                        "deleted."
+                    )
+                msg = "[ OK  ]"
+                continue
+        print(msg)
 
 
 # vim: set ft=python :
