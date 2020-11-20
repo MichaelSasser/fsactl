@@ -46,9 +46,21 @@ msfs:
           command: update-layout.bat  # first build command
         - path: "{{ addon_path }}/community-vl3rotax915"  # second build directory
           command: "python {{ addon_path }}/build.py"  # second build command
+    - github: Working-Title-MSFS-Mods/fspackages
+      install:  # Don't use autodiscovery. Install one or more directories of a single source
+        - "{{ addon_path }}/build/workingtitle-g3000"  # install the g3000 update
+        - "{{ addon_path }}/build/workingtitle-g1000"  # install the g1000 update
+        - "{{ addon_path }}/build/workingtitle-aircraft-cj4"  # install the cj4 update
+      build:
+        - path: "{{ addon_path }}"
+          command: powershell.exe "Set-ExecutionPolicy Bypass -Scope Process -Force; .\build.ps1 workingtitle-project-g3000.xml"
+        - path: "{{ addon_path }}"
+          command: powershell.exe "Set-ExecutionPolicy Bypass -Scope Process -Force; .\build.ps1 workingtitle-project-g1000.xml"
+        - path: "{{ addon_path }}"
+          command: powershell.exe "Set-ExecutionPolicy Bypass -Scope Process -Force; .\build.ps1 workingtitle-project-cj4.xml"
 ```
 
-Be sure to use slashs `/` instead of backslashs in all paths.
+Be sure to use slashs `/` instead of backslashs in paths.
 
 You will get a more detailed Documentation to this in the near future.
 
@@ -59,9 +71,9 @@ $ fsactl
 usage: fsactl [-h] [--version] [-d] {update,download,make,install} ...
 
 positional arguments:
-  {update,download,make,install}
-    update              Update and build addons
+  {download,update,make,install}
     download            Download new addons
+    update              Update and build addons
     make                Force to rebuild the addons
     install             Install addons
 
