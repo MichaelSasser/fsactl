@@ -943,7 +943,7 @@ docs = ["sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints", "sphinxcontrib
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b8bf81e83abc118278d3c3eefc7afb3320fa3e1ba5d5775d2ab6505fe2426c40"
+content-hash = "f92af3209e90ac4b2703386b3d0d79619c4a633e5b0fda71458a90410b4fac16"
 
 [metadata.files]
 alabaster = [
