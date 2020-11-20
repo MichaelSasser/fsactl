@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fsactl"
-version = "0.1.2"
+version = "0.1.3"
 description = "Install and update MSFS2020 addons"
 license = "GPL-3.0+"
 readme = "README.md"
