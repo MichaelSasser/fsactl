@@ -667,3 +667,7 @@ FodyWeavers.xsd
 .dropbox
 .dropbox.attr
 .dropbox.cache
+
+### Project
+#  (DEV) link to config file
+/*.lnk
