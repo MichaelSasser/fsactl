@@ -59,7 +59,7 @@ class Error(Exception):
         super().__init__(msg)
 
 
-class ConnectionError(Error):
+class ConnectionError(Error):  # TODO: Why redefine built-in error? (!!!)
     pass
 
 
