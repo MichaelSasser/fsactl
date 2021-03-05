@@ -579,7 +579,7 @@ test = ["versioneer", "pylint", "pycodestyle", "pyflakes", "pytest", "mock", "py
 
 [[package]]
 name = "python-language-server"
-version = "0.36.1"
+version = "0.36.2"
 description = "Python Language Server for the Language Server Protocol"
 category = "dev"
 optional = false
@@ -841,7 +841,7 @@ test = ["pytest"]
 
 [[package]]
 name = "tabulate"
-version = "0.8.7"
+version = "0.8.9"
 description = "Pretty-print tabular data"
 category = "main"
 optional = false
@@ -1284,8 +1284,8 @@ python-jsonrpc-server = [
     {file = "python_jsonrpc_server-0.4.0-py3-none-any.whl", hash = "sha256:e5a908ff182e620aac07db5f57887eeb0afe33993008f57dc1b85b594cea250c"},
 ]
 python-language-server = [
-    {file = "python-language-server-0.36.1.tar.gz", hash = "sha256:c85d718ef6860319ad59fd6f2acb1166e9349b782ee8e8908e08ecf241615f52"},
-    {file = "python_language_server-0.36.1-py2.py3-none-any.whl", hash = "sha256:0c672aec88fa73f47c36aa4d0b7717868b316a1398d3fb73554955675ce54bae"},
+    {file = "python-language-server-0.36.2.tar.gz", hash = "sha256:9984c84a67ee2c5102c8e703215f407fcfa5e62b0ae86c9572d0ada8c4b417b0"},
+    {file = "python_language_server-0.36.2-py2.py3-none-any.whl", hash = "sha256:a0ad0aca03f4a20c1c40f4f230c6773eac82c9b7cdb026cb09ba10237f4815d5"},
 ]
 pytz = [
     {file = "pytz-2020.4-py2.py3-none-any.whl", hash = "sha256:5c55e189b682d420be27c6995ba6edce0c0a77dd67bfbe2ae6607134d5851ffd"},
@@ -1421,8 +1421,8 @@ sphinxcontrib-serializinghtml = [
     {file = "sphinxcontrib_serializinghtml-1.1.4-py2.py3-none-any.whl", hash = "sha256:f242a81d423f59617a8e5cf16f5d4d74e28ee9a66f9e5b637a18082991db5a9a"},
 ]
 tabulate = [
-    {file = "tabulate-0.8.7-py3-none-any.whl", hash = "sha256:ac64cb76d53b1231d364babcd72abbb16855adac7de6665122f97b593f1eb2ba"},
-    {file = "tabulate-0.8.7.tar.gz", hash = "sha256:db2723a20d04bcda8522165c73eea7c300eda74e0ce852d9022e0159d7895007"},
+    {file = "tabulate-0.8.9-py3-none-any.whl", hash = "sha256:d7c013fe7abbc5e491394e10fa845f8f32fe54f8dc60c6622c6cf482d25d47e4"},
+    {file = "tabulate-0.8.9.tar.gz", hash = "sha256:eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
