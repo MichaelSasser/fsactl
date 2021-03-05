@@ -54,7 +54,7 @@ pycodestyle = "^2.6.0"
 yapf = "^0.30.0"
 vulture = "^2.1"
 mypy = "^0.812"
-python-language-server = { version = "^0.36.1", extras = ["all"] }
+python-language-server = { version = "^0.36.2", extras = ["all"] }
 black = { version = "*", allow-prereleases = true }
 #black = { version = "^5.5.3", extras = ["pyproject"] }
 flake8-bugbear = "^21.3.1"
