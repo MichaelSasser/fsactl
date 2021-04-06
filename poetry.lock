@@ -544,7 +544,7 @@ python-versions = "*"
 
 [[package]]
 name = "pytest"
-version = "6.2.2"
+version = "6.2.3"
 description = "pytest: simple powerful testing with Python"
 category = "dev"
 optional = false
@@ -947,7 +947,7 @@ docs = ["sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints", "sphinxcontrib
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "5580d32762ca5dd9b4d512938924d6aef66f07e851874d005e22572b632c633b"
+content-hash = "f7f6d4d779f3780a5391ce2f13bd08788de780c8515eb3fbb0a83ef1709af36c"
 
 [metadata.files]
 alabaster = [
@@ -1277,8 +1277,8 @@ pyreadline = [
     {file = "pyreadline-2.1.zip", hash = "sha256:4530592fc2e85b25b1a9f79664433da09237c1a270e4d78ea5aa3a2c7229e2d1"},
 ]
 pytest = [
-    {file = "pytest-6.2.2-py3-none-any.whl", hash = "sha256:b574b57423e818210672e07ca1fa90aaf194a4f63f3ab909a2c67ebb22913839"},
-    {file = "pytest-6.2.2.tar.gz", hash = "sha256:9d1edf9e7d0b84d72ea3dbcdfd22b35fb543a5e8f2a60092dd578936bf63d7f9"},
+    {file = "pytest-6.2.3-py3-none-any.whl", hash = "sha256:6ad9c7bdf517a808242b998ac20063c41532a570d088d77eec1ee12b0b5574bc"},
+    {file = "pytest-6.2.3.tar.gz", hash = "sha256:671238a46e4df0f3498d1c3270e5deb9b32d25134c99b7d75370a68cfbe9b634"},
 ]
 python-jsonrpc-server = [
     {file = "python-jsonrpc-server-0.4.0.tar.gz", hash = "sha256:62c543e541f101ec5b57dc654efc212d2c2e3ea47ff6f54b2e7dcb36ecf20595"},
