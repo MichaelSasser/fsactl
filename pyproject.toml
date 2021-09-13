@@ -57,7 +57,7 @@ mypy = "^0.910"
 python-language-server = { version = "^0.36.2", extras = ["all"] }
 black = { version = "*", allow-prereleases = true }
 #black = { version = "^5.5.3", extras = ["pyproject"] }
-flake8-bugbear = "^21.4.3"
+flake8-bugbear = "^21.9.1"
 
 [tool.poetry.scripts]
 fsactl = "fsactl.app:main"
