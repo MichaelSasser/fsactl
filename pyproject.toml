@@ -30,7 +30,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.9"
 semver = "^2.13.0"
-PyYAML = "^5.3.1"  # CVE-2020-1747: Version < 5.3.1
+PyYAML = ">=5.3.1,<7.0.0"  # CVE-2020-1747: Version < 5.3.1
 Jinja2 = ">=2.11.2,<4.0.0"
 GitPython = "^3.1.11"
 coloredlogs = ">=14,<16"
