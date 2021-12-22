@@ -53,7 +53,7 @@ pylint = "^2.12.2"
 pycodestyle = "^2.6.0"
 yapf = "^0.31.0"
 vulture = "^2.3"
-mypy = "^0.910"
+mypy = "^0.930"
 python-language-server = { version = "^0.36.2", extras = ["all"] }
 black = { version = "*", allow-prereleases = true }
 #black = { version = "^5.5.3", extras = ["pyproject"] }
