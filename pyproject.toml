@@ -54,7 +54,7 @@ pycodestyle = "^2.10.0"
 yapf = "^0.32.0"
 vulture = "^2.7"
 mypy = "^1.1.1"
-black = { version = "^23.1.0", allow-prereleases = true }
+black = { version = "^23.3.0", allow-prereleases = true }
 #black = { version = "^5.5.3", extras = ["pyproject"] }
 flake8-bugbear = "^23.3.23"
 
