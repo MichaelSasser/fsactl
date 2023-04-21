@@ -51,7 +51,7 @@ neovim = "^0.3.1"
 pydocstyle = "^6.3.0"
 pylint = "^2.17.2"
 pycodestyle = "^2.10.0"
-yapf = "^0.32.0"
+yapf = "^0.33.0"
 vulture = "^2.7"
 mypy = "^1.2.0"
 black = { version = "^23.3.0", allow-prereleases = true }
