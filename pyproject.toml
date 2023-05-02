@@ -44,7 +44,7 @@ sphinxcontrib-programoutput = { version = "^0.17", optional = true }
 docs = ["sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints", "sphinxcontrib-programoutput"]
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^3.2.2"
+pre-commit = "^3.3.1"
 pytest = "^7.3.1"
 flake8 = "^6.0.0"
 neovim = "^0.3.1"
